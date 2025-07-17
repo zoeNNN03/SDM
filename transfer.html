@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .a4-page {
+                width: 297mm;
+                height: 210mm;
+                margin: 0 auto;
+                padding: 3mm;
+                box-sizing: border-box;
+                background-color: #fff;
+                border: 1px solid #ccc;
+            }
+
+            /* text */
+            .small-text {
+                font-size: 6px;
+            }
+            .medium-text {
+                font-size: 7px;
+            }
+            .large-text {
+                font-size: 12px;
+            }
+            
+            /* Header */
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                width: 100%;
+                padding-bottom: 5px;
+            }
+
+            .header-left {
+                display: flex;
+                flex-direction: column;
+                font-size: 10px;
+            }
+
+            .header-center {
+                text-align: center;
+                line-height: 1.3;
+                flex: 1;
+            }
+
+            .header-center .title-th {
+                font-weight: bold;
+            }
+
+            .header-center .title-en {
+                font-size: 10px;
+                color: #333;
+            }
+
+            .header-right {
+                display: flex;
+                flex-direction: column;
+                font-size: 10px;
+                align-items: flex-end;
+            }
+
+            .notes {
+                font-size: 10px;
+                text-align: right;
+                margin-top: 15px;
+            }
+
+            .date {
+                margin-top: 5px;
+                font-size: 10px;
+                width: fit-content;
+            }
+
+            /* Content */
+            .content {
+                justify-content: space-between;
+                align-items: flex-start;
+                width: 100%;
+                padding-bottom: 5px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-family: Arial, sans-serif;
+                font-size: 10px;
+                text-align: center;
+            }
+
+            th, td {
+                border: 1px solid #000;
+                padding: 3px;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            .vertical-text {
+                writing-mode: vertical-lr;
+                transform: rotate(180deg);
+            }
+
+            .bold {
+                font-weight: bold;
+            }
+
+            /* Approve e-stamp */
+            .approve {
+                justify-content: space-between;
+                align-items: flex-start;
+                width: 100%;
+                padding-bottom: 5px;
+            }
+
+            .approve table {
+                table-layout: fixed; /* ให้ความกว้างของคอลัมน์คงที่ */
+                width: 100%;
+            }
+
+            .space {
+                width: 100px;
+                height: 100px;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                margin: 0;
+                vertical-align: middle; /* จัดกลางในแนวตั้งของเซลล์ */
+            }
+
+            .circle {
+                width: 80%;
+                height: 80%;
+                border: 3px solid #0026ff;
+                border-radius: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-family: sans-serif;
+                margin: 10px auto;
+            }
+
+            .divider {
+                width: 80%;
+                height: 1px;
+                background-color: #0026ff;
+                margin: 5px 0;
+            }
+
+            .charleter {
+                font-size: 150%;
+                font-weight: bold;
+                color: #0026ff;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="a4-page">
+            <!-- Header -->
+            <div class="header large-text">
+                <!-- Left -->
+                <div class="header-left">
+                    <div>
+                        <img src="confidential.png" alt="confidential" style="width: 100px; height: auto;">
+                    </div>
+                    <div>
+                        <img src="DENSO.png" alt="DENSO Logo" style="width: 100px; height: auto;">
+                    </div>
+                    <div class="date">วันที่กรอกเอกสาร Date : ..........................................</div>
+                </div>
+
+                <!-- Center -->
+                <div class="header-center">
+                    <div class="title-th">แบบฟอร์มการโอนย้ายอัตรากำลังคนข้ามแผนก</div>
+                    <div class="title-en">Requisition of Manpower Transfer Cross Department</div>
+                </div>
+
+                <!-- Right -->
+                <div class="header-right">
+                    <div>
+                        ☑ SDM ☐ SKD
+                    </div>
+                    <div class="notes">
+                        (show on edit) บันทึก HR.......................................(สำหรับเจ้าหน้าที่ HR)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <table class="medium-text">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">ลำดับ<br>No.</th>
+                            <th rowspan="2">รหัสพนักงาน<br>Emp. Code</th>
+                            <th rowspan="2">ชื่อ - นามสกุล<br>Name - Surname</th>
+                            <th rowspan="2">ระดับ<br>Grade</th>
+                            <th colspan="5">ข้อมูลปัจจุบัน<br><span class="bold">Current</span></th>
+                            <th colspan="6">หน่วยงานที่รับโอน<br><span class="bold">Detail of Change</span></th>
+                            <th rowspan="2">ผู้อนุมัติโดยตรง (*2)<br>Direct Superior</th>
+                            <th rowspan="2">สาเหตุการย้าย<br>Transfer Reason</th>
+                        </tr>
+                        <tr>
+                            <!-- Current -->
+                            <th>ตำแหน่ง<br>Position</th>
+                            <th>ชื่อหัวหน้างาน<br>Section Owner</th>
+                            <th>ประเภทพนักงาน<br>Type</th>
+                            <th>รหัสศูนย์ต้นทุน<br>Cost Center</th>
+                            <th>กะ<br>Shift</th>
+                            <!-- Detail of Change -->
+                            <th>ตำแหน่ง<br>Position</th>
+                            <th>ชื่อหัวหน้างาน<br>Section Owner</th>
+                            <th>รหัสหน่วยงาน<br>Section ID</th>
+                            <th>ประเภทพนักงาน<br>Type</th>
+                            <th>รหัสศูนย์ต้นทุน<br>Cost Center</th>
+                            <th>วันที่มีผล<br>Effective Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- ตัวอย่างข้อมูลแถว -->
+                            <td>1</td>
+                            <td>EMP1234</td>
+                            <td>นายสมชาย ใจดี</td>
+                            <td>G4</td>
+                            <td>Operator</td>
+                            <td>คุณ A</td>
+                            <td>Full-Time</td>
+                            <td>CC001</td>
+                            <td>D</td>
+                            <td>Technician</td>
+                            <td>คุณ B</td>
+                            <td>S001</td>
+                            <td>Contract</td>
+                            <td>CC002</td>
+                            <td>01/08/2025</td>
+                            <td>Manager C</td>
+                            <td>เพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>EMP5678</td>
+                            <td>นางสาวสวย ใจดี</td>
+                            <td>G5</td>
+                            <td>Technician</td>
+                            <td>คุณ D</td>
+                            <td>Part-Time</td>
+                            <td>CC002</td>
+                            <td>A</td>
+                            <td>Engineer</td>
+                            <td>คุณ E</td>
+                            <td>S002</td>
+                            <td>Full-Time</td>
+                            <td>CC003</td>
+                            <td>15/08/2025</td>
+                            <td>Manager F</td>
+                            <td>ย้ายแผนก</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>EMP9101</td>
+                            <td>นายสมปอง ใจดี</td>
+                            <td>G6</td>
+                            <td>Supervisor</td>
+                            <td>คุณ G</td>
+                            <td>Full-Time</td>
+                            <td>CC003</td>
+                            <td>C</td>
+                            <td>Manager</td>
+                            <td>คุณ H</td>
+                            <td>S003</td>
+                            <td>Contract</td>
+                            <td>CC004</td>
+                            <td>01/09/2025</td>
+                            <td>Manager I</td>
+                            <td>ปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>EMP1122</td>
+                            <td>นางสาวสวยงาม ใจดี</td>
+                            <td>G7</td>
+                            <td>Manager</td>
+                            <td>คุณ J</td>
+                            <td>Full-Time</td>
+                            <td>CC004</td>
+                            <td>B</td>
+                            <td>Director</td>
+                            <td>คุณ K</td>
+                            <td>S004</td>
+                            <td>Full-Time</td>
+                            <td>CC005</td>
+                            <td>10/09/2025</td>
+                            <td>Manager L</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>EMP3344</td>
+                            <td>นายสมชาย สวยงาม</td>
+                            <td>G8</td>
+                            <td>Director</td>
+                            <td>คุณ M</td>
+                            <td>Part-Time</td>
+                            <td>CC005</td>
+                            <td>D</td>
+                            <td>Vice President</td>
+                            <td>คุณ N</td>
+                            <td>S005</td>
+                            <td>Contract</td>
+                            <td>CC006</td>
+                            <td>20/09/2025</td>
+                            <td>Manager O</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>EMP5566</td>
+                            <td>นางสาวสวยงาม สวยงาม</td>
+                            <td>G9</td>
+                            <td>Vice President</td>
+                            <td>คุณ P</td>
+                            <td>Full-Time</td>
+                            <td>CC006</td>
+                            <td>A</td>
+                            <td>President</td>
+                            <td>คุณ Q</td>
+                            <td>S006</td>
+                            <td>Full-Time</td>
+                            <td>CC007</td>
+                            <td>01/10/2025</td>
+                            <td>Manager R</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>EMP7788</td>
+                            <td>นายสมปอง สวยงาม</td>
+                            <td>G10</td>
+                            <td>President</td>
+                            <td>คุณ S</td>
+                            <td>Part-Time</td>
+                            <td>CC007</td>
+                            <td>C</td>
+                            <td>Senior Vice President</td>
+                            <td>คุณ T</td>
+                            <td>S007</td>
+                            <td>Contract</td>
+                            <td>CC008</td>
+                            <td>15/10/2025</td>
+                            <td>Manager U</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>EMP9900</td>
+                            <td>นางสาวสวยงาม สวยงาม</td>
+                            <td>G11</td>
+                            <td>Senior Vice President</td>
+                            <td>คุณ V</td>
+                            <td>Full-Time</td>
+                            <td>CC008</td>
+                            <td>B</td>
+                            <td>Chief Executive Officer</td>
+                            <td>คุณ W</td>
+                            <td>S008</td>
+                            <td>Full-Time</td>
+                            <td>CC009</td>
+                            <td>01/11/2025</td>
+                            <td>Manager X</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>EMP1234</td>
+                            <td>นายสมชาย ใจดี</td>
+                            <td>G12</td>
+                            <td>Chief Executive Officer</td>
+                            <td>คุณ Y</td>
+                            <td>Part-Time</td>
+                            <td>CC009</td>
+                            <td>D</td>
+                            <td>Chief Operating Officer</td>
+                            <td>คุณ Z</td>
+                            <td>S009</td>
+                            <td>Contract</td>
+                            <td>CC010</td>
+                            <td>15/11/2025</td>
+                            <td>Manager AA</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>EMP5678</td>
+                            <td>นางสาวสวย ใจดี</td>
+                            <td>G13</td>
+                            <td>Chief Operating Officer</td>
+                            <td>คุณ AB</td>
+                            <td>Full-Time</td>
+                            <td>CC010</td>
+                            <td>A</td>
+                            <td>Chief Financial Officer</td>
+                            <td>คุณ AC</td>
+                            <td>S010</td>
+                            <td>Full-Time</td>
+                            <td>CC011</td>
+                            <td>01/12/2025</td>
+                            <td>Manager AD</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <!-- ตัวอย่างข้อมูลแถว -->
+                            <td>11</td>
+                            <td>EMP1234</td>
+                            <td>นายสมชาย ใจดี</td>
+                            <td>G4</td>
+                            <td>Operator</td>
+                            <td>คุณ A</td>
+                            <td>Full-Time</td>
+                            <td>CC001</td>
+                            <td>D</td>
+                            <td>Technician</td>
+                            <td>คุณ B</td>
+                            <td>S001</td>
+                            <td>Contract</td>
+                            <td>CC002</td>
+                            <td>01/08/2025</td>
+                            <td>Manager C</td>
+                            <td>เพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>EMP5678</td>
+                            <td>นางสาวสวย ใจดี</td>
+                            <td>G5</td>
+                            <td>Technician</td>
+                            <td>คุณ D</td>
+                            <td>Part-Time</td>
+                            <td>CC002</td>
+                            <td>A</td>
+                            <td>Engineer</td>
+                            <td>คุณ E</td>
+                            <td>S002</td>
+                            <td>Full-Time</td>
+                            <td>CC003</td>
+                            <td>15/08/2025</td>
+                            <td>Manager F</td>
+                            <td>ย้ายแผนก</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>EMP9101</td>
+                            <td>นายสมปอง ใจดี</td>
+                            <td>G6</td>
+                            <td>Supervisor</td>
+                            <td>คุณ G</td>
+                            <td>Full-Time</td>
+                            <td>CC003</td>
+                            <td>C</td>
+                            <td>Manager</td>
+                            <td>คุณ H</td>
+                            <td>S003</td>
+                            <td>Contract</td>
+                            <td>CC004</td>
+                            <td>01/09/2025</td>
+                            <td>Manager I</td>
+                            <td>ปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>EMP1122</td>
+                            <td>นางสาวสวยงาม ใจดี</td>
+                            <td>G7</td>
+                            <td>Manager</td>
+                            <td>คุณ J</td>
+                            <td>Full-Time</td>
+                            <td>CC004</td>
+                            <td>B</td>
+                            <td>Director</td>
+                            <td>คุณ K</td>
+                            <td>S004</td>
+                            <td>Full-Time</td>
+                            <td>CC005</td>
+                            <td>10/09/2025</td>
+                            <td>Manager L</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>EMP3344</td>
+                            <td>นายสมชาย สวยงาม</td>
+                            <td>G8</td>
+                            <td>Director</td>
+                            <td>คุณ M</td>
+                            <td>Part-Time</td>
+                            <td>CC005</td>
+                            <td>D</td>
+                            <td>Vice President</td>
+                            <td>คุณ N</td>
+                            <td>S005</td>
+                            <td>Contract</td>
+                            <td>CC006</td>
+                            <td>20/09/2025</td>
+                            <td>Manager O</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>EMP5566</td>
+                            <td>นางสาวสวยงาม สวยงาม</td>
+                            <td>G9</td>
+                            <td>Vice President</td>
+                            <td>คุณ P</td>
+                            <td>Full-Time</td>
+                            <td>CC006</td>
+                            <td>A</td>
+                            <td>President</td>
+                            <td>คุณ Q</td>
+                            <td>S006</td>
+                            <td>Full-Time</td>
+                            <td>CC007</td>
+                            <td>01/10/2025</td>
+                            <td>Manager R</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>EMP7788</td>
+                            <td>นายสมปอง สวยงาม</td>
+                            <td>G10</td>
+                            <td>President</td>
+                            <td>คุณ S</td>
+                            <td>Part-Time</td>
+                            <td>CC007</td>
+                            <td>C</td>
+                            <td>Senior Vice President</td>
+                            <td>คุณ T</td>
+                            <td>S007</td>
+                            <td>Contract</td>
+                            <td>CC008</td>
+                            <td>15/10/2025</td>
+                            <td>Manager U</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>EMP9900</td>
+                            <td>นางสาวสวยงาม สวยงาม</td>
+                            <td>G11</td>
+                            <td>Senior Vice President</td>
+                            <td>คุณ V</td>
+                            <td>Full-Time</td>
+                            <td>CC008</td>
+                            <td>B</td>
+                            <td>Chief Executive Officer</td>
+                            <td>คุณ W</td>
+                            <td>S008</td>
+                            <td>Full-Time</td>
+                            <td>CC009</td>
+                            <td>01/11/2025</td>
+                            <td>Manager X</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>EMP1234</td>
+                            <td>นายสมชาย ใจดี</td>
+                            <td>G12</td>
+                            <td>Chief Executive Officer</td>
+                            <td>คุณ Y</td>
+                            <td>Part-Time</td>
+                            <td>CC009</td>
+                            <td>D</td>
+                            <td>Chief Operating Officer</td>
+                            <td>คุณ Z</td>
+                            <td>S009</td>
+                            <td>Contract</td>
+                            <td>CC010</td>
+                            <td>15/11/2025</td>
+                            <td>Manager AA</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>EMP5678</td>
+                            <td>นางสาวสวย ใจดี</td>
+                            <td>G13</td>
+                            <td>Chief Operating Officer</td>
+                            <td>คุณ AB</td>
+                            <td>Full-Time</td>
+                            <td>CC010</td>
+                            <td>A</td>
+                            <td>Chief Financial Officer</td>
+                            <td>คุณ AC</td>
+                            <td>S010</td>
+                            <td>Full-Time</td>
+                            <td>CC011</td>
+                            <td>01/12/2025</td>
+                            <td>Manager AD</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <!-- ตัวอย่างข้อมูลแถว -->
+                            <td>21</td>
+                            <td>EMP1234</td>
+                            <td>นายสมชาย ใจดี</td>
+                            <td>G4</td>
+                            <td>Operator</td>
+                            <td>คุณ A</td>
+                            <td>Full-Time</td>
+                            <td>CC001</td>
+                            <td>D</td>
+                            <td>Technician</td>
+                            <td>คุณ B</td>
+                            <td>S001</td>
+                            <td>Contract</td>
+                            <td>CC002</td>
+                            <td>01/08/2025</td>
+                            <td>Manager C</td>
+                            <td>เพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>EMP5678</td>
+                            <td>นางสาวสวย ใจดี</td>
+                            <td>G5</td>
+                            <td>Technician</td>
+                            <td>คุณ D</td>
+                            <td>Part-Time</td>
+                            <td>CC002</td>
+                            <td>A</td>
+                            <td>Engineer</td>
+                            <td>คุณ E</td>
+                            <td>S002</td>
+                            <td>Full-Time</td>
+                            <td>CC003</td>
+                            <td>15/08/2025</td>
+                            <td>Manager F</td>
+                            <td>ย้ายแผนก</td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td>EMP9101</td>
+                            <td>นายสมปอง ใจดี</td>
+                            <td>G6</td>
+                            <td>Supervisor</td>
+                            <td>คุณ G</td>
+                            <td>Full-Time</td>
+                            <td>CC003</td>
+                            <td>C</td>
+                            <td>Manager</td>
+                            <td>คุณ H</td>
+                            <td>S003</td>
+                            <td>Contract</td>
+                            <td>CC004</td>
+                            <td>01/09/2025</td>
+                            <td>Manager I</td>
+                            <td>ปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>EMP1122</td>
+                            <td>นางสาวสวยงาม ใจดี</td>
+                            <td>G7</td>
+                            <td>Manager</td>
+                            <td>คุณ J</td>
+                            <td>Full-Time</td>
+                            <td>CC004</td>
+                            <td>B</td>
+                            <td>Director</td>
+                            <td>คุณ K</td>
+                            <td>S004</td>
+                            <td>Full-Time</td>
+                            <td>CC005</td>
+                            <td>10/09/2025</td>
+                            <td>Manager L</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td>EMP3344</td>
+                            <td>นายสมชาย สวยงาม</td>
+                            <td>G8</td>
+                            <td>Director</td>
+                            <td>คุณ M</td>
+                            <td>Part-Time</td>
+                            <td>CC005</td>
+                            <td>D</td>
+                            <td>Vice President</td>
+                            <td>คุณ N</td>
+                            <td>S005</td>
+                            <td>Contract</td>
+                            <td>CC006</td>
+                            <td>20/09/2025</td>
+                            <td>Manager O</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td>EMP5566</td>
+                            <td>นางสาวสวยงาม สวยงาม</td>
+                            <td>G9</td>
+                            <td>Vice President</td>
+                            <td>คุณ P</td>
+                            <td>Full-Time</td>
+                            <td>CC006</td>
+                            <td>A</td>
+                            <td>President</td>
+                            <td>คุณ Q</td>
+                            <td>S006</td>
+                            <td>Full-Time</td>
+                            <td>CC007</td>
+                            <td>01/10/2025</td>
+                            <td>Manager R</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>27</td>
+                            <td>EMP7788</td>
+                            <td>นายสมปอง สวยงาม</td>
+                            <td>G10</td>
+                            <td>President</td>
+                            <td>คุณ S</td>
+                            <td>Part-Time</td>
+                            <td>CC007</td>
+                            <td>C</td>
+                            <td>Senior Vice President</td>
+                            <td>คุณ T</td>
+                            <td>S007</td>
+                            <td>Contract</td>
+                            <td>CC008</td>
+                            <td>15/10/2025</td>
+                            <td>Manager U</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>28</td>
+                            <td>EMP9900</td>
+                            <td>นางสาวสวยงาม สวยงาม</td>
+                            <td>G11</td>
+                            <td>Senior Vice President</td>
+                            <td>คุณ V</td>
+                            <td>Full-Time</td>
+                            <td>CC008</td>
+                            <td>B</td>
+                            <td>Chief Executive Officer</td>
+                            <td>คุณ W</td>
+                            <td>S008</td>
+                            <td>Full-Time</td>
+                            <td>CC009</td>
+                            <td>01/11/2025</td>
+                            <td>Manager X</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td>EMP1234</td>
+                            <td>นายสมชาย ใจดี</td>
+                            <td>G12</td>
+                            <td>Chief Executive Officer</td>
+                            <td>คุณ Y</td>
+                            <td>Part-Time</td>
+                            <td>CC009</td>
+                            <td>D</td>
+                            <td>Chief Operating Officer</td>
+                            <td>คุณ Z</td>
+                            <td>S009</td>
+                            <td>Contract</td>
+                            <td>CC010</td>
+                            <td>15/11/2025</td>
+                            <td>Manager AA</td>
+                            <td>ย้ายแผนกและเพิ่มทักษะ</td>
+                        </tr>
+                        <tr>
+                            <td>30</td>
+                            <td>EMP5678</td>
+                            <td>นางสาวสวย ใจดี</td>
+                            <td>G13</td>
+                            <td>Chief Operating Officer</td>
+                            <td>คุณ AB</td>
+                            <td>Full-Time</td>
+                            <td>CC010</td>
+                            <td>A</td>
+                            <td>Chief Financial Officer</td>
+                            <td>คุณ AC</td>
+                            <td>S010</td>
+                            <td>Full-Time</td>
+                            <td>CC011</td>
+                            <td>01/12/2025</td>
+                            <td>Manager AD</td>
+                            <td>ย้ายแผนกและปรับตำแหน่ง</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Approve e-stamp -->
+            <div class="approve">
+                <table class="small-text">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" colspan="3">ต้นสังกัด<br>Current Section</th>
+                            <th rowspan="2">Health Center</th>
+                            <th colspan="3">Human Resources Department</th>
+                            <th rowspan="2">ต้นสังกัด<br>Current Section</th>
+                            <th colspan="4">Human Resources Department Update data</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">MP Planning & RC</th>
+                            <th>Information Technology</th>
+                            <th colspan="3">Compensation & Benefits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ผู้ร้องขอ<br>Requester</td>
+                            <td>ตรวจสอบ<br>Checked</td>
+                            <td>อนุมัติ<br>Approved</td>
+                            <td>ตรวจสอบ<br>Checked</td>
+                            <td>ตรวจสอบ<br>Checked</td>
+                            <td>SAL/JD/Type</td>
+                            <td>รับทราบ<br>Acknowledge</td>
+                            <td>อนุมัติ<br>Approved</td>
+                            <td>แก้ไข<br>Edit</td>
+                            <td>แก้ไข<br>Edit</td>
+                            <td>ตรวจสอบ<br>Checked</td>
+                            <td>อนุมัติ<br>Approved</td>
+                        </tr>
+                        <tr>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Jakkarin P.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                ☑ Follow <br>
+                                ☐ Over <br>
+                                Remark:
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                            <td class="space">
+                                <div class="circle">
+                                    <div class="charleter">Waspakkanut W.</div>
+                                    <div class="divider"></div>
+                                    <div class="charleter">12/6/2568</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Associate</td>
+                            <td>T6-Senior Staff/Supervisor above</td>
+                            <td>Head of sub Section above</td>
+                            <td>T7-Staff above</td>
+                            <td>T6-Senior Staff above</td>
+                            <td><hr></td>
+                            <td>Head of Section</td>
+                            <td>President</td>
+                            <td>T8-Officer above</td>
+                            <td>T8-Officer above</td>
+                            <td>T6-Senior Staff above</td>
+                            <td>Head of Section</td>
+                        </tr>
+                        <tr>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                            <td>Date: 18/7/2568</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
